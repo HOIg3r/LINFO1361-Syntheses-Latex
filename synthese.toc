@@ -72,71 +72,72 @@
 \contentsline {subsection}{\numberline {6.5}Monte Carlo Tree Search}{40}{}%
 \contentsline {subsection}{\numberline {6.6}Stochastic Games}{41}{}%
 \contentsline {subsubsection}{\numberline {6.6.1}Expectminimax}{41}{}%
-\contentsline {section}{\numberline {7}Logical Agent}{42}{}%
-\contentsline {subsection}{\numberline {7.1}Knowledge Based Agents}{42}{}%
-\contentsline {subsubsection}{\numberline {7.1.1}Operation KBA}{42}{}%
+\contentsline {section}{\numberline {7}Logical Agent}{43}{}%
+\contentsline {subsection}{\numberline {7.1}Knowledge Based Agents}{43}{}%
+\contentsline {subsubsection}{\numberline {7.1.1}Operation KBA}{43}{}%
 \contentsline {subsubsection}{\numberline {7.1.2}Knowledge representation}{43}{}%
-\contentsline {subsection}{\numberline {7.2}Exemple : the Wumpus World}{43}{}%
-\contentsline {subsection}{\numberline {7.3}Logique}{43}{}%
-\contentsline {subsection}{\numberline {7.4}Implication (entailment)}{44}{}%
-\contentsline {subsection}{\numberline {7.5}Proposition logique}{44}{}%
-\contentsline {subsubsection}{\numberline {7.5.1}Syntax}{44}{}%
-\contentsline {subsubsection}{\numberline {7.5.2}Sémantique}{45}{}%
-\contentsline {subsubsection}{\numberline {7.5.3}Inference}{45}{}%
-\contentsline {subsection}{\numberline {7.6}Propositional Theorem Proving}{46}{}%
-\contentsline {subsubsection}{\numberline {7.6.1}Preuve inference}{46}{}%
-\contentsline {section}{\numberline {8}First-Order Logic}{46}{}%
-\contentsline {subsection}{\numberline {8.1}Propositional logic}{46}{}%
-\contentsline {subsection}{\numberline {8.2}Syntax and semantics of FOL}{47}{}%
-\contentsline {subsubsection}{\numberline {8.2.1}Complex sentences}{49}{}%
-\contentsline {subsubsection}{\numberline {8.2.2}Quantifiers}{49}{}%
-\contentsline {subsection}{\numberline {8.3}Using FOL}{49}{}%
-\contentsline {subsubsection}{\numberline {8.3.1}Ex Wumpus}{49}{}%
-\contentsline {subsection}{\numberline {8.4}Complement on FOL}{49}{}%
-\contentsline {section}{\numberline {9}Inference in First-Order Logic}{51}{}%
-\contentsline {subsection}{\numberline {9.1}Propositional vs FOL inference}{51}{}%
-\contentsline {subsubsection}{\numberline {9.1.1}Reduction to Propositional Logic}{51}{}%
-\contentsline {subsection}{\numberline {9.2}Unification}{52}{}%
-\contentsline {subsubsection}{\numberline {9.2.1}Most General Unifier}{52}{}%
-\contentsline {subsubsection}{\numberline {9.2.2}Standardize apart}{52}{}%
-\contentsline {subsubsection}{\numberline {9.2.3}Generalized Modus Ponens}{52}{}%
-\contentsline {subsection}{\numberline {9.3}Forward Chaining}{52}{}%
-\contentsline {subsubsection}{\numberline {9.3.1}First-order definite clauses}{54}{}%
-\contentsline {subsubsection}{\numberline {9.3.2}Analyse}{54}{}%
-\contentsline {subsection}{\numberline {9.4}Backward chaining}{54}{}%
-\contentsline {subsubsection}{\numberline {9.4.1}Logic programming: Prolog}{54}{}%
-\contentsline {subsection}{\numberline {9.5}Résolutions}{54}{}%
-\contentsline {subsubsection}{\numberline {9.5.1}Skilemization}{55}{}%
-\contentsline {subsubsection}{\numberline {9.5.2}Resolution inference rule}{55}{}%
-\contentsline {subsubsection}{\numberline {9.5.3}Introducing answers}{56}{}%
-\contentsline {section}{\numberline {10}Automated Planning}{57}{}%
-\contentsline {subsection}{\numberline {10.1}Definition of classical planning}{57}{}%
-\contentsline {subsubsection}{\numberline {10.1.1}Représentation du State}{58}{}%
-\contentsline {subsubsection}{\numberline {10.1.2}Représentation des Actions}{58}{}%
-\contentsline {subsubsection}{\numberline {10.1.3}Représentation des objectifs}{58}{}%
-\contentsline {subsection}{\numberline {10.2}Algorithms for classical planning}{60}{}%
-\contentsline {subsubsection}{\numberline {10.2.1}Complexité}{60}{}%
-\contentsline {subsubsection}{\numberline {10.2.2}Forward and backward search}{60}{}%
-\contentsline {subsubsection}{\numberline {10.2.3}Forward state-space search}{60}{}%
-\contentsline {subsubsection}{\numberline {10.2.4}Backward state-space Search}{60}{}%
-\contentsline {subsubsection}{\numberline {10.2.5}Planning as Boolean satisfiability}{60}{}%
-\contentsline {subsection}{\numberline {10.3}Heuristics for planning}{61}{}%
-\contentsline {subsubsection}{\numberline {10.3.1}Relaxed problem}{61}{}%
-\contentsline {subsubsection}{\numberline {10.3.2}Set covering Problem}{61}{}%
-\contentsline {subsubsection}{\numberline {10.3.3}Restricted precondition}{61}{}%
-\contentsline {subsubsection}{\numberline {10.3.4}Ignore-delete-list heuristic}{61}{}%
-\contentsline {subsubsection}{\numberline {10.3.5}Domain-independent pruning}{61}{}%
-\contentsline {section}{\numberline {11}Learning from exemples}{61}{}%
-\contentsline {subsection}{\numberline {11.1}Feedback}{61}{}%
-\contentsline {subsection}{\numberline {11.2}Supervised Learning}{62}{}%
-\contentsline {subsubsection}{\numberline {11.2.1}Classification VS. Regression}{62}{}%
-\contentsline {subsubsection}{\numberline {11.2.2}Ockam's Razor}{62}{}%
-\contentsline {subsection}{\numberline {11.3}Learning Decision Trees}{62}{}%
-\contentsline {subsection}{\numberline {11.4}Decision tree from exemple}{63}{}%
-\contentsline {subsection}{\numberline {11.5}The Decision-Tree-Learning Algorithm}{64}{}%
-\contentsline {subsection}{\numberline {11.6}Entropy}{65}{}%
-\contentsline {subsection}{\numberline {11.7}Leaning Curves}{65}{}%
-\contentsline {subsection}{\numberline {11.8}Ensemble learning}{65}{}%
-\contentsline {subsubsection}{\numberline {11.8.1}Bagging}{66}{}%
-\contentsline {subsubsection}{\numberline {11.8.2}Random Forest}{66}{}%
-\contentsline {subsubsection}{\numberline {11.8.3}Bootsing}{66}{}%
+\contentsline {subsection}{\numberline {7.2}Exemple : the Wumpus World}{44}{}%
+\contentsline {subsection}{\numberline {7.3}Logique}{46}{}%
+\contentsline {subsubsection}{\numberline {7.3.1}Implication (entailment)}{47}{}%
+\contentsline {subsubsection}{\numberline {7.3.2}Monotonicité}{48}{}%
+\contentsline {subsection}{\numberline {7.4}Proposition logique}{49}{}%
+\contentsline {subsubsection}{\numberline {7.4.1}Syntax}{49}{}%
+\contentsline {subsubsection}{\numberline {7.4.2}Sémantique}{50}{}%
+\contentsline {subsubsection}{\numberline {7.4.3}Inference}{50}{}%
+\contentsline {subsection}{\numberline {7.5}Propositional Theorem Proving}{51}{}%
+\contentsline {subsubsection}{\numberline {7.5.1}Preuve inference}{51}{}%
+\contentsline {section}{\numberline {8}First-Order Logic}{52}{}%
+\contentsline {subsection}{\numberline {8.1}Propositional logic}{52}{}%
+\contentsline {subsection}{\numberline {8.2}Syntax and semantics of FOL}{52}{}%
+\contentsline {subsubsection}{\numberline {8.2.1}Complex sentences}{53}{}%
+\contentsline {subsubsection}{\numberline {8.2.2}Quantifiers}{54}{}%
+\contentsline {subsection}{\numberline {8.3}Using FOL}{54}{}%
+\contentsline {subsubsection}{\numberline {8.3.1}Ex Wumpus}{54}{}%
+\contentsline {subsection}{\numberline {8.4}Complement on FOL}{54}{}%
+\contentsline {section}{\numberline {9}Inference in First-Order Logic}{56}{}%
+\contentsline {subsection}{\numberline {9.1}Propositional vs FOL inference}{56}{}%
+\contentsline {subsubsection}{\numberline {9.1.1}Reduction to Propositional Logic}{56}{}%
+\contentsline {subsection}{\numberline {9.2}Unification}{57}{}%
+\contentsline {subsubsection}{\numberline {9.2.1}Most General Unifier}{57}{}%
+\contentsline {subsubsection}{\numberline {9.2.2}Standardize apart}{57}{}%
+\contentsline {subsubsection}{\numberline {9.2.3}Generalized Modus Ponens}{57}{}%
+\contentsline {subsection}{\numberline {9.3}Forward Chaining}{57}{}%
+\contentsline {subsubsection}{\numberline {9.3.1}First-order definite clauses}{59}{}%
+\contentsline {subsubsection}{\numberline {9.3.2}Analyse}{59}{}%
+\contentsline {subsection}{\numberline {9.4}Backward chaining}{59}{}%
+\contentsline {subsubsection}{\numberline {9.4.1}Logic programming: Prolog}{59}{}%
+\contentsline {subsection}{\numberline {9.5}Résolutions}{59}{}%
+\contentsline {subsubsection}{\numberline {9.5.1}Skilemization}{60}{}%
+\contentsline {subsubsection}{\numberline {9.5.2}Resolution inference rule}{60}{}%
+\contentsline {subsubsection}{\numberline {9.5.3}Introducing answers}{61}{}%
+\contentsline {section}{\numberline {10}Automated Planning}{62}{}%
+\contentsline {subsection}{\numberline {10.1}Definition of classical planning}{62}{}%
+\contentsline {subsubsection}{\numberline {10.1.1}Représentation du State}{63}{}%
+\contentsline {subsubsection}{\numberline {10.1.2}Représentation des Actions}{63}{}%
+\contentsline {subsubsection}{\numberline {10.1.3}Représentation des objectifs}{63}{}%
+\contentsline {subsection}{\numberline {10.2}Algorithms for classical planning}{65}{}%
+\contentsline {subsubsection}{\numberline {10.2.1}Complexité}{65}{}%
+\contentsline {subsubsection}{\numberline {10.2.2}Forward and backward search}{65}{}%
+\contentsline {subsubsection}{\numberline {10.2.3}Forward state-space search}{65}{}%
+\contentsline {subsubsection}{\numberline {10.2.4}Backward state-space Search}{65}{}%
+\contentsline {subsubsection}{\numberline {10.2.5}Planning as Boolean satisfiability}{65}{}%
+\contentsline {subsection}{\numberline {10.3}Heuristics for planning}{66}{}%
+\contentsline {subsubsection}{\numberline {10.3.1}Relaxed problem}{66}{}%
+\contentsline {subsubsection}{\numberline {10.3.2}Set covering Problem}{66}{}%
+\contentsline {subsubsection}{\numberline {10.3.3}Restricted precondition}{66}{}%
+\contentsline {subsubsection}{\numberline {10.3.4}Ignore-delete-list heuristic}{66}{}%
+\contentsline {subsubsection}{\numberline {10.3.5}Domain-independent pruning}{66}{}%
+\contentsline {section}{\numberline {11}Learning from exemples}{66}{}%
+\contentsline {subsection}{\numberline {11.1}Feedback}{66}{}%
+\contentsline {subsection}{\numberline {11.2}Supervised Learning}{67}{}%
+\contentsline {subsubsection}{\numberline {11.2.1}Classification VS. Regression}{67}{}%
+\contentsline {subsubsection}{\numberline {11.2.2}Ockam's Razor}{67}{}%
+\contentsline {subsection}{\numberline {11.3}Learning Decision Trees}{67}{}%
+\contentsline {subsection}{\numberline {11.4}Decision tree from exemple}{68}{}%
+\contentsline {subsection}{\numberline {11.5}The Decision-Tree-Learning Algorithm}{69}{}%
+\contentsline {subsection}{\numberline {11.6}Entropy}{70}{}%
+\contentsline {subsection}{\numberline {11.7}Leaning Curves}{70}{}%
+\contentsline {subsection}{\numberline {11.8}Ensemble learning}{70}{}%
+\contentsline {subsubsection}{\numberline {11.8.1}Bagging}{71}{}%
+\contentsline {subsubsection}{\numberline {11.8.2}Random Forest}{71}{}%
+\contentsline {subsubsection}{\numberline {11.8.3}Bootsing}{71}{}%
