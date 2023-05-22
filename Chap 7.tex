@@ -133,6 +133,8 @@
 			\item KB $\textcolor{red}{\not} \models \alpha_2$
 		\end{itemize}
 		
+		On voit que 2 models de KB ne sont pas d'accord du fait que [2,2] est sage
+		
 		
 		si KB $\models$ $\alpha_1$ on peut conclure que $\alpha_1$ est vrai
 		
@@ -217,7 +219,7 @@
 			
 	\subsection{Propositional Theorem Proving}
 		\begin{itemize}
-			\item Equivalence logique : $\alpha \equiv \beta$
+			\item Equivalence logique : $\alpha \equiv \beta$ ssi $\alpha \models \beta$ et $\beta \models \alpha$
 			\item Valide (tautologie) : Toutes les intrerprétation sont valide (True)
 			\item Satifaisant : True dans certaine interprétation mais pas toutes
 			\item Unsatisfait : True pour aucune des interprétations.
@@ -227,6 +229,13 @@
 		$\alpha \models \beta IF (\alpha \wedge \neg\beta)$ est insatisfait
 			
 		\subsubsection{Preuve inference}
+		
+		On veut déduire de nouvelle formules qui sont des conséquence logique de KB
+		
+		Donc si on veut que $KB \models \alpha$ alors on va déduire que $KB \rightarrow F1$ et déduit une nouvelle formule et donc avec $(KB\rightarrow F1) \rightarrow F2$ on peut déduire une nouvelle formule, etc pour ensuite déduire $\alpha$
+		
+		
+			$\alpha$ et $\beta$ sont toutes les 2 des formules 		
 			\begin{itemize}
 				\item Modus Ponens : $\cfrac{\alpha \Rightarrow \beta, \ \alpha}{\beta}$
 				\item And-elimination : $\cfrac{\alpha \wedge \beta}{\alpha}$
@@ -234,5 +243,63 @@
 
 			\end{itemize}
 			
-		TODO A TERMINER
+			\textbf{Proof as a search}
+				
+				On a notre KB initial et on a une fonction sucesseur qui retounre un nouveau KB avec une nouvelle formule. Notre Goal test verifie si KB contient la phrase "final"/de l'objetif.
+				
+			\textbf{Résolution}
+			
+				\begin{figure}[H]
+					\centering
+					\includegraphics[width=\textwidth]{img/proof.png}
+				\end{figure}
+				
+				
+				Un regle : Si j'ai 2 disjonction et que dans une j'ai une propositions logique négative ($\neg$) et que j'ai la meme dans l'autre mais positive, je peux déduire que je peux prendre les autres propositions logique et les mettre ensemble ($\land$).
+			
+				J'ai besion d'avoir 2 formule sous la forme de disjonction
+				
+				Preuve complete et sound.
+				
+				Le soucis est que je dois représenter mon KB sous la forme de disjonction. Mais cela peut etre faire par un CNF ($A_1\land \dots \land A_n$) (n'importe qu'elle formule peut etre transfomé en CNF (déja prouvé))
+				
+				
+				Il faut ensuite on peut appliquer cet algo qui prouve que $KB \models \alpha$ iff $(KB \land \neg \alpha) \text{unsatisfiable}$
+				
+				\begin{figure}[H]
+					\centering
+					\includegraphics[width=\textwidth]{img/proof1.png}
+				\end{figure}
+				
+				Avec notre KB on va déduire de nouvelle clause (formule sous forme disjonctive)$C_1$, mais si il y a une clause spéciale qui est vide alors false alors l'entierté du KB est insatisfait .
+				
+				
+				Prenons un exemple et un Xanax :
+				
+				\begin{figure}[H]
+					\centering
+					\includegraphics[width=\textwidth]{img/proof2.png}
+				\end{figure}
+				
+				On veut prouver que il n'y a pas de puit en [1,2] ($\neg P_{1,2}$)
+				
+				KB est : ($B_{1,1} \Leftrightarrow (P_{1,2} \lor P_{2,1}) \lor\neg B_{1,1}$)
+				
+				$\alpha$ est $\neg P_{1,2}$
+				
+				On va donc ajouter $P_{1,2}$ et le transformer en CNF et on fait la résolution
+				
+				Si on utilise $(\neg P_{1,2} \lor B_{1,1})$ et $(\neg B_{1,1})$ et on va avoir le formule ($\neg P_{1,2}$)
+				
+				autre ex :
+				
+				Si on utilise $(\neg P_{2,1} \lor B_{1,1})$ et $(\neg B_{1,1} \lor P_{1,2} \lor P_{2,1})$ et on va avoir le formule ($\neg B_{1,1} \lor P_{1,2} \lor B_{1,1}$)
+				
+				Maintenant je peux de nouveau faire une résolutions sur $\neg P_{1,2}$ et $P_{1,2}$ et j'obtient un empty donc False
+				
+				et voila (donner moi un deuxième Xanax)
+				
+				
+			
+		
 		
