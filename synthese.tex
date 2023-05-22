@@ -1,0 +1,813 @@
+\documentclass[12pt]{article}
+
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb}
+\usepackage{parskip}
+\usepackage{graphicx}
+\usepackage{multicol}
+\usepackage{float}
+
+
+% Margins
+\usepackage[top=1.5cm, left=2cm, right=2cm, bottom=2.0cm]{geometry}
+% Colour table cells
+\usepackage[table]{xcolor}
+
+% Get larger line spacing in table
+\newcommand{\tablespace}{\\[1.25mm]}
+\newcommand\Tstrut{\rule{0pt}{2.6ex}}         % = `top' strut
+\newcommand\tstrut{\rule{0pt}{2.0ex}}         % = `top' strut
+\newcommand\Bstrut{\rule[-0.9ex]{0pt}{0pt}}   % = `bottom' strut
+
+%%%%%%%%%%%%%%%%%
+%     Title     %
+%%%%%%%%%%%%%%%%%
+\title{Synthèse Artificial Inteligence LINFO1115}
+\author{Jacques HOGGE}
+\date{\today}
+
+\begin{document}
+\maketitle
+\newpage
+\tableofcontents
+\newpage
+
+%Introduction
+\input{Chap 1}
+
+\newpage
+
+%2.1-2.3
+\input{Chap 2}
+
+\newpage
+
+%Solving Problem by searching
+\input{Chap 3}
+
+\newpage
+
+%Local Search
+\input{Chap 4}
+
+\newpage
+
+\input{Chap 5}
+
+\newpage
+
+%Adversarial Search and Games
+\input{Chap 6}
+
+
+			
+\section{Logical Agent}
+	\subsection{Knowledge Based Agents}
+		On peut raisoner avec de la connaissance.Il y a 2 types de connaissances :
+		\begin{enumerate}
+			\item \textbf{Logique classique} : Vrai ou fausse
+			\item \textbf{Autre logique} : connaissance incertaine
+		\end{enumerate}
+		
+		L'agent peut etre représenté de la sorte : 
+		\begin{figure}[htp]
+			\centering
+			\includegraphics[width=\textwidth]{img/KBA.png}
+		\end{figure}
+		
+		
+		Le composant central d'un KBA est un ensemble de phrase.
+		
+		\textbf{Sentences} : affirmations sur le monde
+			
+			
+		\subsubsection{Operation KBA}
+			\begin{enumerate}
+				\item \textbf{TELL :} Ajoute une nouvelle phrase
+				\item \textbf{ASK :} Demande se qui est connue
+				\item \textbf{MAKE-PERCEPT-SENTENCE} : Construit une phrase affirmant que l'agent a perçu le percept donné à un moment donné.
+				\item \textbf{MAKE-ACTION-QUERY} : Construit une phrase qui ASK quelle action devrait etres faite maintenant
+				\item \textbf{MAKE-ACTION-SENTENCE} : Construit une phrase affirmant que l'action choisie a été exécutée
+			\end{enumerate}
+			
+			\begin{figure}[htp]
+				\centering
+				\includegraphics[width=\textwidth]{img/KBA1.png}
+			\end{figure}
+			
+		\subsubsection{Knowledge representation}
+			Le language dans laquelle la phrase est représenté. Il y a 2 approches
+			\begin{itemize}
+				\item \textbf{Declarative approach} : Nous ne disons à l'agent que ce qu'il a besoin de savoir. Les phrases sont dites une à une (par TELL) jusqu'à ce que l'agent sache comment opérer dans son environnement.
+				\item \textbf{Procedural approach} : Nous codons les comportements souhaités directement sous forme de programme.
+			\end{itemize}
+			
+	\subsection{Exemple : the Wumpus World}
+	
+		Une grille avec un créature qui mange les agents. Il y a des puits dans des cases (a éviter) et le but est de trouver le trésor sans se faire manger ni tomber dans les puits.\footnote{pages 209-210-211 du livre}
+		\begin{itemize}
+			\item Pas entièrement observable (perception local)
+			\item Déterministe
+			\item Pas épisodique (séquentielle au niveau des actions préformées)
+			\item Statique (Monstre et puits ne bouge pas)
+			\item Discret
+			\item Un seul agent
+		\end{itemize}
+		
+	\subsection{Logique}
+		\begin{itemize}
+			\item \textbf{Syntax} : Spécifie toutes les phrases bien formé ($x+y=4$ OK $x2y+=$ KO)
+			\item \textbf{Sémantique} : Définir la vérité des phrases par rapport à chaque monde possible Définir la vérité des phrases par rapport à chaque monde possible
+			\begin{itemize}
+				\item $x=1, y=3$
+				\item $x=2, y=2$
+				\item \dots
+			\end{itemize}
+			\item \textbf{Interprétation} : abstraction mathématique d'un monde possible, en donnant une interprétation une phrase est vrai ou fausse.
+			\item \textbf{Modele de phrase} : $\alpha$ est un interprétation ou la phrase est vraie.
+			
+			"\textit{$m$ est un model de $\alpha$}" $\rightarrow$ $\alpha$ est vrai dans l'interprétation de $m$
+			\item \textbf{M($\alpha$)} : ensemble des modeles de $\alpha$
+			\item KB $\models$ $\alpha$ : $\alpha$ est vrai si KB est vrai
+			\item KB $\vdash$ $\alpha$ : On peut prouver $\alpha$ avec KB 
+
+		\end{itemize}
+		
+	\subsection{Implication (entailment)}
+		Implication entre la phrase $\alpha$ et $\beta$, $\beta$ est un conséquence logique de $\alpha$
+		
+		\begin{equation}
+		\alpha \models \beta \ IFF \ M(\alpha) \subset M(\beta)
+		\end{equation}
+		
+		$\beta$ est vrai dans chaque model de $\alpha$ (ex : $x=0 \models xy=0$)
+		
+		si KB $\models$ $\alpha_1$ on peut conclure que $\alpha_1$ est vrai
+		
+		Verfier KB $\models$ $\alpha$ en utilisant le Model checking
+		
+		\begin{enumerate}
+			\item énumération des interprétations
+			\item Trouver les interprétations qui sont un models de $\alpha$
+			\item Check que $\beta$ est vrai dans ces models $\alpha \vdash \beta$
+		\end{enumerate}
+		
+		\begin{figure}[htp]	
+			\centering
+			\includegraphics[width=0.4\textwidth]{img/KBA2.png}
+		\end{figure}
+		
+	\subsection{Proposition logique}
+		\subsubsection{Syntax}
+			\begin{itemize}
+				\item True, False
+				\item Symbols (P,Q,A, \dots)
+				\item Connecteur logiques :
+				\begin{itemize}
+					\item Négations : $\neg$
+					\item Conjonctions : $\wedge$
+					\item Disjonctions : $\vee$
+					\item Implication : $\Rightarrow$
+					\item Equivalence : $\Leftrightarrow$
+					\item parenthese (,)
+				\end{itemize}
+			\end{itemize}
+			
+			\begin{figure}[htp]	
+				\centering
+				\includegraphics[width=0.6\textwidth]{img/KBA3.png}
+			\end{figure}
+			
+			\subsubsection{Sémantique}
+			On fait ça avec un table de verité
+			\begin{figure}[htp]	
+				\centering
+				\includegraphics[width=0.6\textwidth]{img/KBA4.png}
+			\end{figure}
+			
+			exemple Wumpus : Un carré est venteux si et seulement si un carré voisins est un puits
+			
+			$B_{1,1} \Leftrightarrow (P_{1,2} \vee P_{2,1})$
+			
+			Voire exemples slides 40-41-42 chap 7
+			
+		\subsubsection{Inference}
+			Le but est de decider si KB $\models \alpha$
+			
+			On veut savoir si $P_{1,2}$ n'est pas un puit :$\neg P_{1,2}$
+			\begin{itemize}
+				\item Imaginons nous avons ses infos : $B_{1,1}, B_{2,1}, P_{1,1}, P_{1,2}, P_{2,1}, P_{2,2}, P_{3,1}$
+				\item on a donc $2^n$ interprétation possible ($n$ = nombre de symbol) donc ici $2^7$
+			\end{itemize}
+			
+			Il faut donc enuméré sur chaque interprétation et check si $\alpha = P_{1,2}$ est True dans chaque models de KB
+			
+			Complexité temporelle de $\mathcal{O}(2^n)$ et spatiale de $\mathcal{O}(n)$
+			
+			\begin{figure}[htp]	
+				\centering
+				\includegraphics[width=0.6\textwidth]{img/KBA5.png}
+			\end{figure}
+			
+	\subsection{Propositional Theorem Proving}
+		\begin{itemize}
+			\item Equivalence logique : $\alpha \equiv \beta$
+			\item Valide (tautologie) : Toutes les intrerprétation sont valide (True)
+			\item Satifaisant : True dans certaine interprétation mais pas toutes
+			\item Unsatisfait : True pour aucune des interprétations.
+			
+		\end{itemize}
+		
+		$\alpha \models \beta IF (\alpha \wedge \neg\beta)$ est insatisfait
+			
+		\subsubsection{Preuve inference}
+			\begin{itemize}
+				\item Modus Ponens : $\cfrac{\alpha \Rightarrow \beta, \ \alpha}{\beta}$
+				\item And-elimination : $\cfrac{\alpha \wedge \beta}{\alpha}$
+				\item Two sens de Morgan : $\cfrac{\neg(\alpha\wedge\beta)}{\neg \alpha \vee \neg \beta} \Leftrightarrow \cfrac{\neg \alpha\vee\neg\beta}{\neg (\alpha \wedge\beta)}$
+
+			\end{itemize}
+			
+		TODO A TERMINER
+		
+\section{First-Order Logic}
+	\subsection{Propositional logic}
+		Une proposition logique est :
+		\begin{itemize}
+			\item \textbf{Déclarative :} les relations entre les variables sont décrites par des phrases
+			\item \textbf{Expressive :} peut présenter des informations partielles en utilisant la disjonction
+			\item \textbf{Compositionel :} Si $A$ = "il pleut" et $B$ = "j'aime la biere" alors $A \wedge B =$ "il pleut et j'aime la biere"
+			\item \textbf{Manque d'expressivité} pour décrire l'environnement de manière concise (ex : ne peut pas dire "les puit provoquent des brises dans les cases adjacentes")
+		\end{itemize}
+		
+		First-Order Logic (FOL) assume que le monde contient :
+		\begin{itemize}
+			\item Objects : personne, voiture, maison, \dots
+			\item Relation : 
+			\begin{itemize}
+				\item Unary : propriété avec les objets
+				\item N-ary : Relations entre les objets
+				\item Ex : la relation de fraternité est l'ensemble $(<\text{Bob, Richard}>,<(\text{Richard,Bob})>)$
+			\end{itemize}
+			\item Fonctions : father\_of, successeur, \dots
+		\end{itemize}
+	\subsection{Syntax and semantics of FOL}
+		\begin{figure}[htp]	
+			\centering
+			\includegraphics[width=0.6\textwidth]{img/FOL.png}
+		\end{figure}
+		\begin{itemize}
+			\item \textbf{Alphabet :} Variables, constantes; fonctions, \dots
+			\item \textbf{Termes :} Combinaison de l'alphabet
+			\item \textbf{Formule bien formé}
+		\end{itemize}
+		
+		\begin{figure}[htp]	
+			\centering
+			\includegraphics[width=0.6\textwidth]{img/FOL1.png}
+			\includegraphics[width=0.6\textwidth]{img/FOL2.png}
+
+		\end{figure}
+		
+		\textbf{Interprétation} : 
+		\begin{itemize}
+			\item D le domaine
+			\item Une fonction (totale) qui map les constante a D
+			\item Une fonction (totale) qui maps les fonctions de symboles a des fonctions ($D \rightarrow D$)
+			\item Une fonction (totale) qui maps les symobls prédit a des prédictions ($D \rightarrow Booleans$)
+		\end{itemize}
+		
+		Voire exemple slidesq p18 chap 8
+		
+		\subsubsection{Complex sentences}
+			Elle sont construite en combinant des phrase atomoque en utilisant des connecteurs logique ($\neg, \land, \lor, \Rightarrow, \Leftrightarrow$) et des parentheses.
+			\begin{itemize}
+				\item $ \neg$ Brother(LeftLeg(Richard), Bob)
+				\item Brother(Richard, Bob) $\land$ Brother(Bob, Richard)
+				\item \dots
+			\end{itemize}
+			
+		\subsubsection{Quantifiers}
+			Peut etre utiliser pour exprimer des propriétés de collections d'objet
+			\begin{itemize}
+				\item Plus besion d'enuméré chaque objet
+				\item $\forall$ dans une conjonction (quantifier universel) ex: $\forall x \ Human(x)\Rightarrow Mortal(x)$
+				\item $\exists$ dans une disjonction (quantifier existentiel) ex : $\exists x \ Bird(x) \land Can\_Fly(x)$
+			\end{itemize}	
+			
+			Attention $\forall x \forall y$ est la meme chose que $\forall y \forall x$ pareil pour $\exists$
+			
+			Mais $\exists x \forall y $ n'est pas la meme chose que $\forall y \exists x$  
+			
+			$\forall x P$ est pareil que $\neg \exists x \neg P$, pareil pour $\exists x P$ est pareil que $\neg \forall x \neg P$
+			
+	\subsection{Using FOL}
+		\begin{figure}[htp]	
+			\centering
+			\includegraphics[width=0.6\textwidth]{img/FOL3.png}
+		\end{figure}
+		
+		FOL peut etre utilisé pour modeliser nombre naturel, ensemble de sous ensemble, listes, ...
+			
+		\subsubsection{Ex Wumpus}
+			\begin{figure}[htp]	
+				\centering
+				\includegraphics[width=0.7\textwidth]{img/FOL4.png}
+				\includegraphics[width=0.7\textwidth]{img/FOL5.png}
+				\includegraphics[width=0.7\textwidth]{img/FOL6.png}
+
+			\end{figure}
+	\subsection{Complement on FOL}
+		Voir slides 41-52
+		
+\newpage
+\section{Inference in First-Order Logic}
+	On va voire comment les algo font pour répondre une question FOL
+	\subsection{Propositional vs FOL inference}
+		\textbf{Universal Instantiation (UI)} Pour n'importe quelle phrase $\alpha$ , variables $v$, et \textit{ground term} $g$ (terme sans variables)
+		
+		\begin{equation}
+			\cfrac{\forall v \ \alpha}{subst(\{v/g\}, \alpha)}
+		\end{equation}
+		
+		$v$ peut etre remplacer par n'importe quelle instance
+
+		$subst(\omega,\alpha)$ applique la substitution $\omega$ sur $\alpha$
+		
+		ex : 
+		
+		$\forall x King(x) \land Greedy(x) \Rightarrow Evil(x)$ Avec on peut déduire que $King(Bob) \land Greedy(Bob) \Rightarrow Evil(Bob)$
+		
+		\textbf{Existential instantiation}
+		Pour n'importe quelle phrase $\alpha$ , variables $v$, et nouveau symbole constant $k$
+			\begin{equation}
+				\cfrac{\exists \ \alpha}{subst(\{v/k\}, \alpha)}
+			\end{equation}
+		
+		$v$ peut etre remplacé avec un nouveau symbole
+		
+		ex :
+		
+		$\exists x  \ mother(bob,x)$ on peut déduire $mother(Bob, ANewMother)$
+		
+		$ANewMother$ est un constante de Skolem, équivalence déductive (pas d'équivalence logique)
+		
+		Avec ces deux instantiations, on peut réduire FOL a des symboles de propositions.
+		
+		\subsubsection{Reduction to Propositional Logic}	
+			Le problème est que il y a une infinité de \textit{ground terms} mais grace a Herbrand, on sait que :
+			
+			\textit{If a sentence $\alpha$ is entailed by a FOL KB, it's entailed by a \textbf{finite} subset of the propositionalized KB}
+			
+			Application $n=0$ a $\infty$:
+			\begin{itemize}
+				\item creer un KB propositionnelle en l'instanciant avec un terme de profondeur $n$
+				\item regarder si $\alpha$ est entaillé par le KB
+			\end{itemize}
+			
+			Si $\alpha$ est pas entaillé l'algo loop a l'infini
+			
+			\textbf{Turing} : Entaillement pour FOL est semidécidable
+			
+	\subsection{Unification}
+		C'est une substitution qui fait que des expression logique différente semble identique
+		
+		ex : 
+		
+		Parent(Bob,x) et Parent(y,z)
+		\begin{itemize}
+			\item \{y/Bob, x/z\} : Parent(Bob,z)
+			\item \{y/Bob, x/Lucia, z/Lucia\} : Parent(Bob, Lucia)
+		\end{itemize}	
+		
+		L'algo $Unify(p,q)$ prend 2 phrase atomique $p$ et $q$ et retourne une sibstitution qui fait que $p$ et $q$ sont identique.
+		
+		$Unify(p,q) = \emptyset$ où $Subst(\emptyset, p) = Subst(\emptyset, q)$
+		
+		$\emptyset$ est l' unificateur des 2 phrases. il y en possiblement plus que 1
+		
+		\subsubsection{Most General Unifier}
+			MGU pour les KOG, fait que "la substitution qui s'engage le moins sur les les variables contraignantes"
+			
+			ex : 
+			
+			$Unify(Parent(Bob,x),Parent(y,z)) = \{y/Bob, x/z\}$
+			
+			MGU est unique
+			
+		
+		\subsubsection{Standardize apart}
+			Si 2 phrase partages des variables alors on peut les unifiers, pour eviter les conflits de noms, on renome un des variables.
+			
+			$Unify(Paren(Bob,x), Parent(y,z)) = Unify(Parent(Bob,w), Parent(q,r))$
+		
+			\begin{figure}[htp]	
+				\centering
+				\includegraphics[width=0.7\textwidth]{img/Unification.png}
+				\includegraphics[width=0.7\textwidth]{img/Unification1.png}
+			\end{figure}
+			
+		\subsubsection{Generalized Modus Ponens}
+			avec $Subst(\emptyset, p_i) = Subst(\emptyset,p_i')$ pour tous les I
+			\begin{equation}
+				\cfrac{p_1', p_2',\dots,p_n',(p_1 \land,p_2 \land \dots \land p_n \Rightarrow q)}{Subst(\emptyset, q)}
+			\end{equation}
+			
+			ex :
+			
+			\begin{equation}
+			\cfrac{King(Bob), Greedy(y), (King(x) \land Greedy(y) \Rightarrow Evil(x))}{Evil(Bob)}
+			\end{equation}
+			Avec $\emptyset = \{x/Bob, y/Bob\}$	
+			
+	\subsection{Forward Chaining}z
+		\subsubsection{First-order definite clauses}
+
+		\begin{itemize}
+			\item Trouver toutes les regles dont les prémisses sont satisfaites
+			\item Ajouter leurs conclusions au faits connus
+			\item Repréter l'opération jusqu'a ce qu'une réponse soit apportée a la question  ou qu'aucun fait nouveau n'est ajouté
+			
+		\end{itemize}	
+		
+		\begin{figure}[htp]	
+			\centering
+			\includegraphics[width=0.7\textwidth]{img/ForwardChaining.png}
+		\end{figure}		
+		
+		\subsubsection{Analyse}
+			\textbf{Soundness :} Il ne dérive que les phrases qui sont impliquées, parce que Generalize Modus Ponen le fait.
+			
+			\textbf{Completeness :} Il répond à toutes les requêtes dont les réponses sont impliquées par le KB, mais peut ne pas se terminer en raison de la semi-décidabilité de l'implication avec des clauses définies.
+			
+	\subsection{Backward chaining}
+		Commence  avec les prémisses de l'objectif
+		\begin{itemize}
+			\item Chaque prémisses doit etre supporté par le KB
+			\item Commencer avec la premieres hypotheses et chercher soutient du KB
+			
+		\end{itemize}
+		
+		La fonctions est un algo récursive tel que une depth-first.
+		
+		\begin{figure}[htp]	
+			\centering
+			\includegraphics[width=0.7\textwidth]{img/BackWardChaining.png}
+		\end{figure}		
+		
+		\subsubsection{Logic programming: Prolog}
+			Algorithm = Logic + Control
+			
+			TODO
+			
+	\subsection{Résolutions}
+		Chaque phrase d'un FOL peut etre convertit en CNF (conjuctive Normal Form)
+			
+		\begin{enumerate}
+			\item \textbf{Eliminer Implications} : $p \Rightarrow q$ devient $\neg  \lor q$ 
+			\item \textbf{Bouger  les $\neg$ qui sont devant}  :
+			\begin{itemize}
+				\item $\neg(p\lor q)$ devient $\neg p \land \neg q$
+				\item $\neg(p\land q)$ devient $\neg p \lor \neg q$
+				\item $\neg \forall x, p$ devient $ \exists x \ \neg p$
+				\item $\neg \exists x, p$ devient $\forall x\  \neg p$
+				\item $\neg \neg p$ devient $p$
+			\end{itemize}
+			\item \textbf{standardiser les variables} : $(\forall x P(x)) \lor (\exists x \ Q(x))$ devient $(\forall x P(x)) \lor (\exists y \ Q(y))$
+			\item \textbf{Bouger les quantifiers a gauche} : $p \lor \forall x \ q$ devient $\forall x \ p \lor q$
+			\item \textbf{Skolemization} : Voire prochaine sections
+			\item \textbf{De Morgan}
+		\end{enumerate}
+		
+		\subsubsection{Skilemization}
+			Objectif est de:
+			\begin{itemize}
+				\item retirer tous les quantifiers existants
+				\item Replacer les varaibles par des toutes nouvelles constantes qui n'existe pas de le KB
+			\end{itemize}			 
+			
+			ex : $\exists x \ Q(x)$ devient $Q(A)$ avec où $A$ est unique
+			
+			Pour les phrases plus complexe, on utilise des fonctions de symbole (Skolem functions) pour indiquer des valeur  spécifique.
+			
+			ex : $\forall Animal(x,A)$ devient $\forall Animal(x,F(x))$
+			
+		\subsubsection{Resolution inference rule}
+			Pour $p_i$ and $q_i$ où $UNIFY(p_j, \neg q_k) = \emptyset$
+			\begin{equation}
+				\cfrac{p_1 \lor \dots p_j \dots \lor p_m, q_1 \lor \dots p_k \dots \lor q_n}{SUBST(\emptyset,(p_1 \lor \dots p_{j-1} \lor p_{j+1} \dots \lor p_m \lor q_1 \lor \dots q_{k-1} \lor q_{k+1} \dots \lor q_n))}
+			\end{equation}
+			
+			exemple plus concret :
+			
+			\begin{figure}[htp]	
+				\centering
+				\includegraphics[width=0.5\textwidth]{img/RIR.png}
+			\end{figure}	
+			
+			$\alpha$ est un conséquence logique de KB si KB $\models \alpha$ IFF ($KB \land \neg \alpha$) insatisfait
+			
+			On transforme juste $\neg \alpha$ en CNF et montre que $KB \land \alpha$ insatisfait car apres application des règles de résolutions.
+			
+			\begin{figure}[htp]	
+				\centering
+				\includegraphics[width=0.9\textwidth]{img/RIR1.png}
+			\end{figure}
+			
+		\subsubsection{Introducing answers}
+		
+			\begin{figure}[htp]	
+				\centering
+				\includegraphics[width=0.8\textwidth]{img/RIR2.png}
+			\end{figure}
+			
+			
+\newpage
+\section{Automated Planning}
+	\subsection{Definition of classical planning}
+		Trouver une séquence d'action pour accomplir l'objectif, c'est une combinaison de différentes technique de IA:
+		\begin{itemize}
+			\item Seaching (Uninformed et informed)
+			\item CSP
+			\item Prositional logic
+			\begin{itemize}
+				\item Modélisation
+				\item Inference (SAT)
+			\end{itemize}
+			\item FOL
+			\begin{itemize}
+				\item modelisation
+			\end{itemize}
+		\end{itemize}
+		
+		L'environnement est :
+		\begin{itemize}
+			\item Entierement observable
+			\item déterministe 
+			\item fini
+			\item statique
+			\item discret
+		\end{itemize}
+		
+		C'est similaire a un \textit{Search problem} :
+		\begin{itemize}
+			\item Input :
+			\begin{itemize}
+				\item Ensemble de state
+				\item Action (State -> State)
+				\item Initial state
+				\item Goal (1 ou un ensemble de state)
+			\end{itemize}
+			\item Output
+				\begin{itemize}
+					\item Séquence d'actions
+				\end{itemize}
+				
+			\item Difficulté : 
+				\begin{itemize}
+					\item Taille de l'espace de recherche
+					\item Methode de recherche
+					\item Introduire décoposition du probleme
+				\end{itemize}
+		\end{itemize}
+		
+		\subsubsection{Représentation du State}
+			C'est un conjonction de (Grand et function free) atoms ($\{A,B\} = A\land B$)
+			\begin{equation}
+				At(Plane1, Melbourne) \land In(Plane1, Bob)
+			\end{equation}
+			
+			\textbf{\textit{Closes-World Assumption}} : si pas d'information sur $p(a)$ alors $p(a) = False$
+			
+		\subsubsection{Représentation des Actions}
+			Spécifiés avec une \textbf{signature} (noms et paramètres), \textbf{Préconditions} (conjunction of literals), \textbf{Effets} (conjunction of literals)
+			
+			Une action est \textbf{Applicable} dans une state $s$ si et seulement si le préconditions de $a$ est une conséquence logique de $s$ si et seulement si $s$ satisafait les préconditions de $a$
+			
+		\subsubsection{Représentation des objectifs}
+			Une objectif = une state partiellement spécifié
+			
+			C'est comme une précondition : une conjonction de litérals (+ ou -)
+			
+			Un state satisfait un Goal si il contient tous les atoms du goals
+		
+			
+			\begin{figure}[htp]	
+				\centering
+				\includegraphics[width=0.8\textwidth]{img/BLOCK.png}
+				\includegraphics[width=0.8\textwidth]{img/BLOCK1.png}
+			\end{figure}
+			 \newpage
+			
+	\subsection{Algorithms for classical planning}
+		\subsubsection{Complexité}
+			\textbf{PlanSAT} : Demande si il existe un plan qui résoud le planning probleme
+			
+			\textbf{Bounded PlanSAT} : Demande si il existe une solutions de longueur $k$ ou moins
+			
+			Les 2 problemes sont décidable (nombre fini de state)
+			
+			Les 2 problemes sont dans \textbf{PSPACE} (plus difficile que NP) mais pas dans NP, PlanSAT est dans P, Bounded PlanSAT est dans NP-Complet.
+			
+		\subsubsection{Forward and backward search}
+			c'est possible d'utiliser \textit{classical state-space search methods} et avec préconditions/effetst, il es possible de rechercher dans n'importe quelle directions
+			
+			\begin{figure}[htp]	
+				\centering
+				\includegraphics[width=0.8\textwidth]{img/FBSearch.png}
+			\end{figure}
+			
+		\subsubsection{Forward state-space search}
+			Similaire a la Search Methode (Ch. 3)
+			
+			Explore pas mal d'actions inutile, de plus state space est tres large(branching factor) c'est pour ca que une fonction heuristique précises est tres utile
+			
+		\subsubsection{Backward state-space Search}
+			On commence du goal et on applique des actions a l'envers jusqu'a trouver une séquence d'etapes qui arrive au state initial. Marche seulement comment on sait faire une actions a l'envers pas toujours le cas. Dure de trouver un bon heuristique.
+			
+		\subsubsection{Planning as Boolean satisfiability}
+			Planning par tester la satisfesabilité le phrase propositionnel $InitialState \land AllPossibleActionDescription \land Goal$
+			
+			A TERMINER
+			
+	\subsection{Heuristics for planning}
+	
+		Recherche forward ou backward est inutile sans un bon heuristique
+		
+		On cherche a approximer le nombre d'action pour arriver a l'objectif depuis un state donnée
+		
+		\subsubsection{Relaxed problem}
+			On defini un nouveau probleme qui est plus facile a résoudre que le probleme initial, le cout de la solutions de ce probleme devient l'heuristique du probleme initial. On peut par exemple ignorer préconditions heuristique, 
+		
+		\subsubsection{Set covering Problem}
+		
+		On retire toutes les préconditions, et on ignonre les litérals supprimé par actions.
+		
+		\subsubsection{Restricted precondition}
+		On retire seulement quelques literals spécifique dans les préconditions
+		
+		\subsubsection{Ignore-delete-list heuristic}
+		Retirer la liste supprimer de toutes les actions ( supprimer l'action négatifs dans les effet )
+		
+		\subsubsection{Domain-independent pruning}
+		Plusieurs States ne sont juste des variantes d'autre states et donc un peu inutile des les visiter et donc on va élagué certaine branche qui sont symétrique
+			
+		
+			
+\section{Learning from exemples}
+	\textbf{Learning} : Améliorer la performance des prochaines taches apres avoirs faits des observations. On ne peut pas anticiper toutes les situations possible. Le taches future peuvent changer ...
+	
+	On se concentre seulement sur les learning problem depuis une collections de input/output, apprendre une fonctions qui prédit l'output pour une nouveau input
+	
+	\subsection{Feedback}
+		3 types de feedback et détermine les 3 types d'apprentissage
+		\begin{itemize}
+			\item \textbf{Supervised Learning} : l'agent observe les inputs et outputs et apprend une fonctions qui match les inputs et outputs
+			\item \textbf{Unsupervised Learning} : l'agent apprend des paternes des inputs meme si aucun output est donnés
+			\item \textbf{Reinforcement Learning} : l'agent apprend par une succession de récompese ou de punitions en fonctions des ses actions
+			
+		\end{itemize}
+		
+	\subsection{Supervised Learning}
+		On donne un ensemble d'entrainemenet $(x_1,y_1), \dots , (x_n, y_n)$
+			 où $y_i$ est généra par une $f(x_i)$ inconnues. On découvre une fonction $h$ qui approxime $f$
+			
+			Pour mesurer la précision de l'hypothèse $h$ on test sur un ensemble de test qui est différent de l'ensemble des test utilsé pour le learning de l'agent.
+			Un Hypotheses se généralise bien si elle prédit correctement la valeur de $y$ pour de nouveaux exemple
+		\subsubsection{Classification VS. Regression}
+			\begin{itemize}
+				\item \textbf{Classification} : la valeur de sortie est tirée d'un ensemble fini de valeurs
+				\item \textbf{Regression} : L'output est un nombre
+			
+			\end{itemize}
+			
+		\subsubsection{Ockam's Razor}
+			\begin{figure}[H]
+				\centering
+				\includegraphics[width=\textwidth]{img/razor.png}
+			\end{figure}
+			
+			On choisis toujours l'hypotheses la plus simple et consistente
+			
+			On donne plus de priorité aux solutions de degréa 1/2 et moins au plus grand (7/8)
+			
+			il faut choisir $h*$ qui est le plus problable avec les data donnée
+			
+			\begin{equation}
+				h* = arg \ max_{h\ in H} \ P(h|data)
+			\end{equation}
+			\begin{equation}
+				h* = arg \ max_{h \in H} \ P(data|h).P(h)
+			\end{equation}
+			
+	\subsection{Learning Decision Trees}
+		Représente une fonctions qui prend un vecteur de valeur en inputs et retourne une décission (un simple valeur). Il trouve ça décission avec une séquence de teste, car chaque node de l'arbre est un test d'un valeur de l'input et les leaf donne la décision.
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=.8\textwidth]{img/tree.png}
+		\end{figure}
+		
+		\begin{enumerate}
+			\item \textit{Alternate} : Seulement Si il y a un restaurant alternatif a coté
+			\item \textit{Bar} : Seulement si le restaurant a un bar confortable
+			\item \textit{Fri/Sat} : True vendredi et samedis
+			\item \textit{Hungry} : Seulement si on a faim
+			\item \textit{Patron} : Combien de personne dans le restaurant (None, Some, Full)
+			\item \textit{Price} : Fourchette de prix
+			\item \textit{Raining} : Si il pleut dehors
+			\item \textit{Reservation} : Si on a fait une réservation
+			\item \textit{Type} : le type de restaurant (francais, Thaie, italien, Burger)
+			\item \textit{WaitEstimate} : Temps d'attente moyen (0, 10, 10-30, 30-60, >60)
+		\end{enumerate}
+		
+		\begin{equation}
+			Goal \Leftrightarrow (Path_1 \lor Path_2 \lor \dots \lor Path_n)
+		\end{equation}
+		
+	\subsection{Decision tree from exemple}
+	
+		Exemple sont des tuples $(X_i, y)$ où $X_i = x_{i1},\dots,x_{in}$ sont les attributs en inputs et $y$ un boolean
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=.8\textwidth]{img/DCFE.png}
+		\end{figure}
+		
+	\subsection{The Decision-Tree-Learning Algorithm}
+		On veut le tree le plus petit possible, on peut donc choisir l'attribut le plus important ou alors diviser en sous probleme
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=.8\textwidth]{img/DTLA.png}
+		\end{figure}
+		
+		Quand on crée un arbre de décission, il y a 4 cas possible :
+		\begin{enumerate}
+			\item Si tous les exemples sont positif (négatif) alors résultate Yes (No)
+			\item Si il y a des positif et négatif, alors choisir le meilleur attribut pour les splits
+			
+			\item Si il n'y a plus d'exemple qui reste retourner une valeur défault
+			\item Si il n'y a plus d'attribut qui reste, mais que les exemples sont positif et négatif, alors les exemple sont incohérents. Return la classification plurielle des exemples restants (vote majoritaire)
+		\end{enumerate}
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=.8\textwidth]{img/DTLA1.png}
+		\end{figure}
+		
+	\subsection{Entropy}
+		Caclule l'incertitude d'une variable random.
+		
+		\begin{equation}
+			H(V) = \sum_{k}P(v_k)\log_2(\cfrac{1}{P(v_k)}) = -\sum_{k}P(v_k).\log_2(P(v_k))
+		\end{equation}
+		
+		ex: piece non truquée (50/50)
+		\begin{equation}
+			H(Fair) = -(0.5\log_2(0.5) + 0.5\log_2(0.5)) = 1
+		\end{equation}
+		ex: piece truquée (99/1)
+		\begin{equation} 
+			H(Unfaire) = -(0.99\log_2(0.99) + 0.01\log_2(0.01)) = 0.08
+		\end{equation}
+		
+		L'entropie d'un boolean random ave une probabilité de True a $q$ (false = $1-q$)
+		
+		\begin{equation}
+			B(q) = -(q.\log_2(q) + (1-q).\log_2(1-q))
+		\end{equation}
+		
+	\subsection{Leaning Curves}
+		On split les exemples en un ensemble de training et test. On apprend des hypotheses et on mesure la précision avec l'ensemble des test.
+		
+		On commence avec un ensemble l'entrainement de 1 que on augmente au fur et a mesure. On peut remarquer que la précission augmente avec un ensemble de trainning plus large. 
+		
+	\subsection{Ensemble learning}
+	
+		Générer une collectino/ensemble d'hypothese et combiner leur prédictions. Cela augmente les performance.
+		\subsubsection{Bagging}
+			\begin{itemize}
+				\item On génere $K$ training set avec $N$ exemple
+				\item Produit $K$ décision d'algo
+				\item Pour un nouvel input
+				\begin{itemize}
+					\item Predit $k$ hypothese
+					\item vote a la majorité
+				\end{itemize}
+			\end{itemize}
+			
+		\subsubsection{Random Forest}
+			Produit $k$ décision algo sur l'exemple donnée
+			
+			ça varie en fonction du choix des attribut
+			
+			A chaque split on fait une restriction random des choix des attributs
+			
+		\subsubsection{Bootsing}
+			Un set d'entrainement avec des poids, chaque exemple associé a un exemple et donc adapte sa méthode d'apprentisage avec les poids.
+			
+			Génère au debut une hypothese avec un poid de 1, on agmente le poids des exemples mal classé. 
+			
+			On stop quand on a $k$ hypotheses et on les utilise pour calculer la prediction
+\end{document}
