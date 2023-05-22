@@ -169,31 +169,3 @@
 				\includegraphics[width=0.8\textwidth]{img/MinConflict.png}
 			\end{figure}
 			
-	\subsection{Structure of the problems}
-		\subsubsection{Independent subproblems}
-			On divise le CSP en sous-problème indépendant entre eux pour ainsi former $k$ CSP différents. On peut les résoudres séparément et la solution est donc l'unions des différente solutions. 
-		
-		Avec ça, le complexité temporelle est de $\mathcal{O}(d^{n/k}k)$
-			
-		\subsubsection{Tree-structure Subproblems}
-		
-			Si le tree est \textit{directed arc consistency} il peut etre résolué en $\mathcal{O}(nd^2)$
-			
-			Pour le transformer en tree :
-			\begin{itemize}
-				\item : retire des nodes :
-				\begin{itemize}
-					\item choisis un sous-ensemble $S$ de taille $c$
-					\item pour chaque assignement possible aux variables de S qui s'attisfonts toutes les contraintes dans $S$,
-					\begin{itemize}
-						\item Retire dans le domaine, n'importe quelle variables qui sont incohérente avec l'assignement de $S$,
-						\item Si CSP a une solution, on la retourne avec assignement $S$
-					\end{itemize}
-				\end{itemize}
-				\item Grouper les nodes:
-				\begin{itemize}
-					\item chaque variable apparait au moins une fois dans un sous-problème
-					\item 2 variables connectées par une contrainte doivent etres ensembles dans au moins un sous-problème
-					\item si une variables apparais dans 2 sous-problèmes, alors elle doit etre dans tous les sous-problèmes sur le path pour connecté tous les sous-problème.
-				\end{itemize}
-			\end{itemize}
