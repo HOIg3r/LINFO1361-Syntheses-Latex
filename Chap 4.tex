@@ -88,14 +88,14 @@ assouplir un sous-ensemble de contraintes
 			\item \textbf{Stochastic hill climbing} : Choisis en mode random parmis les mouvements qui monte
 			\item \textbf{First-choice hill climbing} : On choisi le premier bon successeur que on trouve, pratique si le nombre de successeur est large
 			\item \textbf{Random restart} : On commence de plusieurs points random
+			\item \textbf{Random Walk} : On sélectionne en mode random un élément du neighbourhood et on décide si on doit l'accepter comme la prochaine solution. Il y a plusieur approche possible :
+			\begin{itemize}
+				\item Amélioration aléatoire
+				\item Heuristique de Metropolis : accepter de dégrader la solution
+			\end{itemize}
+			
 		\end{itemize}
-	
-	\subsection{Random Walk}
-		On sélectionne en mode random un élément du neighbourhood et on décide si on doit l'accepter comme la prochaine solution. Il y a plusieur approche possible :
-		\begin{itemize}
-			\item Amélioration aléatoire
-			\item Heuristique de Metropolis : accepter de dégrader la solution
-		\end{itemize}
+		
 		
 	\subsection{Simulated annealing}
 		Algo qui combine Hill climb, un scheduler et un metropolis step.
@@ -112,6 +112,11 @@ assouplir un sous-ensemble de contraintes
 			\item parfois (random) aller downhill (quand la témpérature est haute faut laisser redescendre)
 			\item C'est assurée d'etre optimal si réduction lente.
 		\end{enumerate}
+		
+		\begin{figure}[H]
+			\centering
+			\fbox{\includegraphics[width=\textwidth]{img/SA.png}}
+		\end{figure}
 				
 	\subsection{Local Beam Search}
 		Mélange de hillclimb et annealing en gardant un seul state en mémoire. L'idée est de :
@@ -133,7 +138,7 @@ assouplir un sous-ensemble de contraintes
 		\end{figure}
 	
 		Exemple 8-queens:
-		\begin{figure}[htp]
+		\begin{figure}[H]
 			\centering
 			\includegraphics[width=0.5\textwidth]{img/8QueenGA1.png}
 			\includegraphics[width=0.7\textwidth]{img/8QueenGA2.png}
@@ -141,13 +146,14 @@ assouplir un sous-ensemble de contraintes
 		
 		Les mutations randoms peuvent amener a un bonne situation et permet d'explorer de nouvelle partie du search space
 		
-		\begin{figure}[htp]
+		\begin{figure}[H]
 			\centering
 			\includegraphics[width=0.7\textwidth]{img/AlgoGA1.png}
 			\includegraphics[width=0.7\textwidth]{img/AlgoGA2.png}
 		\end{figure}
 		
 		un probleme avec cet algo est que le crossover est pas applicable a tous les problèmes.
+		
 		
 	\subsection{Tabu search Metaheuristics}
 		

@@ -1,6 +1,8 @@
 \section{Constraint Satisfaction Problem (CSP)}
 
-	Un CSP est composé de 3 composant : 
+	Le but est de crée un algo de recherche indépendant du type de probleme
+
+	On définit le probleme en 3 composant : 
 	\begin{itemize}
 		\item \textbf{X} : ensemble des variables $X_1,X_2,...,X_n$
 		\item \textbf{D} : ensemble des domaines $D_1,D_2,...,D_n$, un pour chaque variables
@@ -46,14 +48,30 @@
 		
 		Ici on considère seulement les CSP avec contrainte binaire
 	
-	\subsection{Constraint Propagation}
+	
+	\subsection{Incremental formulation}
+		\begin{itemize}
+			\item le \textbf{Init state} est une affectation vide
+			\item La \textbf{fonction de succession} assigne une valeur a une variable non assignée si aucune contrainte est violé
+			\item Le \textbf{Goal test} verifie si l'affectation actuelle est complete
+			\item Le \textbf{Path cost} Valeur constante pour chaque etapes qui indique le coup/profondeur du path
+		\end{itemize}
+			
 		Quand une variables est assignié, on propage ça aux autre contrainte et on réduit le search space \footnote{Voire exemple slide 22-27 Chap 5}
 		
-		Le but est de réduire le plus possible le search space et trouver un CSP équivalent a l'original mais avec un domaine plus petit
-		
-		Il y a 2 méthode pour réduire le domaine en considérant les contrainte comme \textbf{Locale}
+	\subsection{Forward checking}
+		Quand on assigne $v$ à $x$ :
 		\begin{itemize}
-			\item \textbf{Arc consistency}: on considère des contraintes entre 2 variables
+			\item On vérifie chaque variables non-assignées $y$ connectée a $x$ (par contrainte binaire)
+			\item On retire du domaine d'$y$ les valeurs impossible
+		\end{itemize}
+		
+	\subsection{Contrainte de propagation}
+			Le but est de réduire le plus possible le search space et trouver un CSP équivalent a l'original mais avec un domaine plus petit
+		
+			Il y a 2 méthode pour réduire le domaine en considérant les contrainte comme \textbf{Locale}
+			\subsubsection{Arc consistency}
+			 on considère des contraintes entre 2 variables
 			
 				$X_i$ est un arc consistant de $X_j$ si pour toutes les valeurs dans $D_j$ il y a une valeur dans $D_j$ qui satisfait la contrainte binaire ($X_i,X_j$)
 				\begin{equation}
@@ -65,15 +83,9 @@
 					\includegraphics[width=0.7\textwidth]{img/arc.png}
 					\includegraphics[width=0.7\textwidth]{img/arc1.png}
 				\end{figure}
-			\item \textbf{Path Consistency} : on considère des contraintes entre $n$ variables
-		\end{itemize}
 				
-		\textbf{Bound consistency : }
-			Une forme plus faible de \textit{Arc consistency}. On considère seulement les limites du domaine, donc on retire toujours les valeurs sur les limites et jamais au milieu
-			
-		\textbf{Global consistency : }
-			Pour les contraintes spéciales, c'est géré avec un "ad hoc specialized method". pour un nombre arbitraire de variable
-			
+				Un contrainte $C(x,y)$ est consistente d'arc si pour toute valeurs dans le domaine de $x$ il y a une valeur dans le domaine d'$y$ qui satisfait $C(x,y)$
+				
 		\subsubsection{Arc-consistency algorithm}
 			\begin{figure}[htp]
 				\centering
@@ -91,15 +103,19 @@
 			\end{enumerate}
 			
 			\textit{REVISITE} supprime toutes les valeurs dans $X_i$ tels que elles ne satisfont pas les contrainte entre $X_i$ et $X_j$.
+
+
+				
+		\subsubsection{Bound consistency : }
+				Une forme plus faible de \textit{Arc consistency}. On considère seulement les limites du domaine, donc on retire toujours les valeurs sur les limites et jamais au milieu
+			
+		\subsubsection{Global consistency : }
+				Pour les contraintes spéciales, c'est géré avec un "ad hoc specialized method". pour un nombre arbitraire de variable
+			
+		
 			
 	\subsection{Backtracking Search for CSPs}
-		\subsubsection{Incremental formulation}
-			\begin{itemize}
-				\item le \textbf{Init state} est une affectation vide
-				\item La \textbf{fonction de succession} assigne une valeur a une variable non assignée si aucune contrainte est violé
-				\item Le \textbf{Goal test} verifie si l'affectation actuelle est complete
-				\item Le \textbf{Path cost} Valeur constante pour chaque etapes qui indique le coup/profondeur du path
-			\end{itemize}
+		
 			
 			L'arbre de recherche a une profondeur de $n$ (nombre de variables) et le nombre de state possible est $\mathcal{O}(d^n)$ avec d la taille du domaine.
 			
