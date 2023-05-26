@@ -10,7 +10,7 @@
 	
 	\begin{itemize}
 		\item Table de conduite de l'agent (\textbf{table driven})\\
-		\item une table essor : Tous les states atteignable depuis le state actuelle\\
+		\item \textbf{Successor} : Tous les states atteignable depuis le state actuelle\\
 		\item \textbf{Path} : Séquence de states connecté par une sequence d'action\\
 		\item \textbf{Operators} : Manière de modifier un state avec une action\\
 		\item \textbf{Goals Test} : Fonction qui teste si un state est le résultat final\\
@@ -94,6 +94,11 @@
 				\item \textbf{d} : Profondeur de la solution la moins couteuse
 				\item \textbf{m} : Profondeur max de l'arbre (peut etre $\infty$)
 			\end{itemize}
+			
+			\begin{figure}[H]
+				\centering
+				\includegraphics[width=.5\textwidth]{img/BDM.png}
+			\end{figure}
 	\subsection{Uninformed Search}
 		\begin{figure}[htp]
 			\centering
@@ -102,9 +107,12 @@
 		\subsubsection{Breadth-First Search(BFS)}
 			Le but est de vérifier par niveau de l'arbre. Problème la mémoire est vite remplie. On commence du root node et ensuite on passe au sub-nodes qui sont dans une FIFO Queue qui représente la frontière.
 			
-			Il est \textbf{complet} si $b$ est fini, il est \textbf{Optimal} si le cout part étapes est de $1$ (souvent il n'est pas optimal)
-			
-			La complexité temporelle et de $\mathcal{O}(b^d)$ \footnote{$1+b+b^2 + \dots + b^d + b(b^d - 1) = \mathcal{O}(b^{d+2}) = \mathcal{O}(b^d)$} et la complexité spatial est de $\mathcal{O}(b^d)$	
+			\begin{itemize}
+				\item \textbf{Complétude} : Oui
+				\item \textbf{Complexité temporelle} : $\mathcal{O}(b^d)$\footnote{$1+b+b^2 + \dots + b^d$}
+				\item \textbf{Complexité spatiale} : $\mathcal{O}(b^d)$
+				\item \textbf{Optimal} : Oui si cout = 1 (pas souvent le cas)
+			\end{itemize}
 			
 			\begin{figure}[htp]
 				\centering
@@ -113,20 +121,32 @@
 			\end{figure}					
 		\newpage
 		\subsubsection{Uniform-Cost search (UCS)}
-			Comme le BFS sauf que le Node avec le cout le plus petit est exploré en premier. Il y a un cout pour passer d'un node a l'autre. La frontière est implémenté avec un Priorety Queue.
+			Comme le BFS sauf que le Node avec le cout le plus petit est exploré en premier. Il y a un cout pour passer d'un node a l'autre. La frontière est implémenté avec un Priorety Queue. Fort semblable a Dijkstra.
 			
 			\begin{figure}[htp]
 				\centering
 				\includegraphics[width=0.6\textwidth]{img/UCS.png}
 			\end{figure}
 			
-			L'algo est \textbf{Complet} si le cout entre chaque step est strictement positif ($\geq \epsilon$), \textbf{Time et Space complexity} = $\mathcal{O}(b^{C^{*}/\epsilon})$	ou $C^*$ est le cout optimal de la solution, et il est \textbf{Optimal} car les node sont expanded par ordre croissant grâce à la Priority Queue.
+			\begin{itemize}
+				\item \textbf{Completude} : Si cout strictement positif ($\geq \epsilon \geq 0$)
+				\item \textbf{Complexité temporelle} : Dure a dire
+				\item \textbf{Compelxité spatiale} : $\mathcal{O}(b^{C^{*/\epsilon}}$
+				\item \textbf{Optimal} : Oui
+			\end{itemize}
+			
+			
 			
 		\subsubsection{Depth-first Search (DFS)}
 		Concrètement, on visite toutes une branche de l'arbre jusqu'à arriver à la \textit{Leaf}, si on ne trouve pas le goal on passe a la prochaine, etc.
 		La Frontière est implémenté avec un Queue LIFO.
 		
-		Cette algo n'est pas \textbf{Complete} car il peut tomber dans une boucle infinie, la \textbf{Complexity time} est de $\mathcal{O}(b^m)$ et la \textbf{Space complexity} est de $\mathcal{O}(mb)$, \textbf{Il n'est pas optimal}
+		\begin{itemize}
+			\item \textbf{Complétude} : Non car peut avoir profondeur (m) $\infty$
+			\item \textbf{Complexité temporelle} : $\mathcal{O}(b^m)$ mauvais si ($m > d$)
+			\item \textbf{Complexité spatiale} : $\mathcal{O}(mb)$
+			\item \textit{Optimal} : Non
+		\end{itemize}
 		
 		\begin{figure}[htp]
 			\centering
@@ -151,9 +171,12 @@
 			
 		Plusieurs nodes sont visité plusieurs fois, mais ce n'est pas très grave car il n'y en a pas beaucoup.
 		
-		Cet algo est \textbf{Complete} et \textbf{Optimal} si on incrémente de 1 à 1
-		
-		la \textbf{Complexité temporel} est $\mathcal{O}(b^d)$ et la \textbf{Space complexity} est $\mathcal{O}(bd)$
+		\begin{itemize}
+			\item \textbf{Complétude} : Oui
+			\item \textbf{Complexité temporelle} : $\mathcal{O}(b^d)$
+			\item \textbf{Complexité spatiale} : $\mathcal{O}(b^d)$
+			\item \textbf{Complétude} : Oui si cout = 1
+		\end{itemize}
 		
 		
 		\subsubsection{Biderectional Search}
@@ -163,6 +186,13 @@
 				\item Search doit être coordonnée entre les 2 recherches
 				\item Problème si plusieurs Goal
 				\item Tous les nodes doivent rester en mémoire
+			\end{itemize}
+			
+			\begin{itemize}
+				\item \textbf{Complétude} : Oui
+				\item \textbf{Complexité temporelle} : $\mathcal{O}(b^{d/2})$
+				\item \textbf{Complexité spatiale} : $\mathcal{O}(b^{d/2})$
+				\item \textbf{Optimal} : Oui si cout = 1
 			\end{itemize}
 			
 	\subsection{Informed Search}
@@ -213,16 +243,20 @@
 				\includegraphics[scale=1]{img/Monotonicité.png}
 			\end{figure}
 		\subsubsection{Greedy Best-First Search(GBFS)}
-			Tente d'étendre le node qui est le plus proche du Goal.
-			
-			Attention il n'est pas optimal et pas complet car il peut loop
-			
-			Sa \textbf{Time compexity} et \textbf{Space complexity} est $\mathcal{O}(b^m)$
+			Tente d'étendre le node qui est le plus proche du Goal. Donc ici, $f(n) = h(n)$
+						
+			\begin{itemize}
+				\item \textbf{Complétude} : Non, profondeur peut etre infinie
+				\item \textbf{Complexité temporelle} : $\mathcal{O}(b^m)$
+				\item \textbf{Complexité spatiale} : $\mathcal{O}(b^m)$
+				\item \textbf{Optimal} : Non
+			\end{itemize}
 			
 			\begin{figure}[htp]
 				\centering
 				\includegraphics[width=\textwidth]{img/GBFS.png}
 			\end{figure}
+			
 		\subsubsection{A*}
 		Fusion de GBFS et Uniform cost. Minimise le cout total estimé de la solution
 		
@@ -247,33 +281,106 @@
 			\includegraphics[width=\textwidth]{img/A5.png}
 		\end{figure}
 		
-		A* utilise la distance et additionne la distance actuelle vers le goal. $g(n)$ le cout de la solution vers le node n et $h(n)$ la fonction heuristique
 		\begin{equation}
 			f(n) = g(n) + h(n)
 		\end{equation}
 		
+		Avec $g(n)$ le cout du chemin du state initial au node $n$ et $h(n)$ l'heuristique qui approxime le cout du chemin du node $n$ vers le goal.
+		
+		$g(n)$ est donc un valeur calculé alors que $h(n)$ n'est qu'une approximation.
+		
 		$h(n)$ ne doit pas surestimer le cout vers le goal
 		
-		\textbf{Time et Space complexity} = $\mathcal{O}(b^d)$ un bon algo mais prend trop de mémoire.
+		On peut prouver que si A* est optimal si $h(n)$ est admissible.
 		
-		L'algo est \textbf{Complete} si le cout ne peut pas être négatif, il est \textbf{optimal} si la fonction heuristique est admissible (tree) ou consistent(graph)
-			
-			
-		Propriété de A* :
+		\textbf{Preuve :}
 		\begin{itemize}
-			\item Avec $h(n)$ consistent, la séquence de nodes étendues par $A*$  est pas d'ordre décroissance de$f(n)$
-			\item A* est optimal si $h(n)$ est consistent
-			\item A* étend tous les nodes avec $f(n) \leq C^*$ ($C^*$ est le cout optimal)
-			\item A* étend au moins un node du contour de $C^*$ avant de le trouver
-			\item A* étend aucun node avec $f(n) > C^*$
+			\item Une solutions est chemin initial $\rightarrow$ goal
+			\item On pose $C^*$ le chemin a cout minimal
+			\item On doit montrer que $A*$ ne retroune pas une chemin suboptimal (une solutions mais pas avec le chemin le plus court)
+			\item \textbf{Partie 1}
+			\begin{itemize}
+				\item $G$ est un goal suboptimal de la frontière
+				\item path cost $g(G) = C$ avec $C > C^*$
+				\item $h(G) = 0$
+				\item $f(G) = g(G) = C > C^* \Leftrightarrow f(G) > C^*$
+			\end{itemize}
+			\item \textbf{Partie 2}
+			\begin{itemize}
+				\item $n$ est un node sur le chemin optimal
+				\item $f(n) = g(n) + h(n)$
+				\item $f(n) \leq C^*$
+			\end{itemize}
+			\item \textbf{Partie 3}
+			\begin{itemize}
+				\item $f(n) \leq C^* < f(G)$
+				\item Node $G$ ne sera jamais choisis $\Rightarrow$ \textbf{CQFD}
+			\end{itemize}
 		\end{itemize}
 		
-		Pour la preuve que A* est optimal $\rightarrow$ Voire slides
+			
+		Monotonicité de $f(n)$
+		\begin{itemize}
+			\item Avec $h(n)$ consistent, alors $f(n)$ le long de n'importe quel  chemin est non décroissant (\textbf{Monotonicité})
+			\begin{itemize}
+				\item On suppose $n'$ successeur de $n$
+				\begin{itemize}
+					\item $g(n') = g(n) + c(n,a,n')$
+					\item $f(n') = g(n') + h(n') = g(n) + c(n,a,n') + h(n')$
+					\item Par la consistance, $h(n) \leq c(n,a,n') + h(n')$
+					\item $f(n') \geq g(n) + h(n) = f(n)$
+					\item $f(n') \geq f(n)$ 
+				\end{itemize}
+			\end{itemize}
+		\end{itemize}
 		
-		\subsubsection{Memory-bounded heuristic search}
-		On tente ici de réduire la mémoire que on a besoin, et on va utiliser les fonctions heuristiques pour nous aider.
+		\Large{\textbf{Search Contours}} \normalsize
 		
-		\textbf{Iterative-deepening A* (IDA*)}
+	
+			un \textbf{Contour} c'est un groupe de node avec $f(n)$ < une certaine valeur
+			
+			Le problème de mémoire de A* est a cause que il s'ented de la meme maniere qu'un BFS qui s'etend par courche et A* par f-contours.
+			
+			\begin{figure}[H]
+				\centering
+				\includegraphics[width=\textwidth]{img/MPA}
+			\end{figure}			 
+		
+			A* étant donc tous les nodes $f(n) < C^*$ et il étand au moins un node du contour $C^*$ avant de trouver le goal.
+		
+			A* est "optimalement efficace" en utilsnat le graph search car il étend le moins de node
+			
+			\textbf{Proprités}
+			\begin{itemize}
+				\item \textbf{Complétude} : Oui
+				\item \textbf{Complexité temporelle} : $\mathcal{O}(b^d)$
+				\item \textbf{Complexité spatiale} : $\mathcal{O}(b^d)$
+				\item \textbf{Optimal} : Oui
+			\end{itemize}
+			
+			Pour réduire le nombre de nodes visité, on peut choisir de pas choisir le node le plus optimal et prendre un suboptimal en utilisant un heuristique pas admissible.
+			
+			On peut aussi faire en sorte d'utiliser toutes la mémoire disponnible et si on est plein, on décide de retirer les nodes "inutile".
+			
+		\subsubsection{Weighted A*}
+			
+			\begin{equation}
+				f(n) = g(n) + w.h(n) (\text{avec} w>1)
+			\end{equation}
+			
+			La solution est garantie d'etre dans un interval constant de facteur $w$ de la solution optimal
+			
+			\begin{center}
+			\begin{tabular}{|c|c|c|}
+				\hline
+				$A*$ & $g(n) + h(n)$ & $w=1$\\ \hline
+				Unifirm-cost & $g(n)$ & $w=0$ \\ \hline
+				Greedy best-first & $h(n)$ & $w=\infty$ \\ \hline
+				Weighted $A*$ & $g(n)+w.h(n)$ & $1<w<\infty$\\ \hline
+			\end{tabular}
+			\end{center}
+			
+		\subsubsection{Iterative deepening A*}
 			A* avec une limite de depth $l$ qui est incrémenté itérativement.
 			
 			IDA* expend seulement les nodes avec f-cost() $\leq$ que les nodes non expand a la dernière itérations.
@@ -282,41 +389,56 @@
 			
 			Propriétés :
 			\begin{itemize}
-				\item \textbf{Complet}
+				\item \textbf{Complet} : Oui
 				\item \textbf{Time complexity} : exponentiel
 				\item \textbf{Space complexity} : Linéaire
 				\item \textbf{Optimal et $h()$ consistent}
 				\item \textbf{Efficace si absence de monotonicité}
 			\end{itemize}
 			
-		\textbf{Recursive best-first search (RBFS)}
-			Pareil que DFS mais ne va pas au bous de la branche, mais utilise $f_{limit}$  pour garder la trace de la valeur f-value du meilleur chemin alternatif a partir de l'ancêtre du node actuel.
-			
+		\subsubsection{Recursive Best-First Search}		
+			DFS combiné avec une meilleur alternative :
 			\begin{itemize}
-				\item \textbf{Time complexity} : Dépend de $h(n)$
-				\item \textbf{Space complexity} : $\mathcal{O}(bd)$ si $h(n)$ est admissible
+				\item Garde en mémoire les options en marge
+				\item Dés que current depth first exploration devient trop couteux, change en
 			\end{itemize}
 			
-			Utilise trop de mémoire
+		\subsubsection{Simple Memory-Bounded A* (SMA*)}
 		
-		\textbf{SMA*}
-			Run avec A* tant que la mémoire est pas pleine. Quand elle est plaine, on doit supprimer un node pour le remplacer, on va donc retirer le pire node (avec la plus grande valeur f-value)
-		
-		Propriétés :
+			A* classique et on utilise toutes la mémoire disponible, déq que il y a plus de place, on retire celui avec la pire f-value pour mettre le nouveau
+			
+			Regénère un arbre de décision seulement quand nécessaire.
+			
 			\begin{itemize}
-				\item \textbf{Complet} si assez de mémoire pour le path de la solutions la plus courte
-				\item \textbf{Optimal} si assez de mémoire pour enregistrer le path de la meilleur solutions
-				\item \textbf{Time complexity} : Pareil que A* si assez de mémoire pour le tree
+				\item \textbf{Complete}: oui si asser de mémoire pour le plus cour chemin
+				\item \textbf{Optimal} : Oui si asser de place en mémoire pour stocker le path de la meilleur solutions
+				\item \textbf{Complexité temporelle} : Meme que A*
 				\item \textbf{Space complexity} : utilise ce qui est disponible
+
 			\end{itemize}
+			
+			Souvent meilleur que A* et IDA* car bon compromis entre temps et espace
 		
 	
 	\subsection{Heuristic en pratique}
-		On doit utiliser un heuristique \textbf{Admissible} et \textbf{Consistent}.
-		
-		Pour comparer 2 heuristique, il faut comparer :
-		\begin{itemize}
-			\item le nombre de nodes genérées
-			\item le facteur de branchage $b^*$
-		\end{itemize}
-		
+		\subsubsection{Comparer 2 heuristique}	
+			On compare le nombre total de node généré N
+			
+			On compare les arbres de recherches (effective branching factor $b*$)
+			\begin{itemize}
+				\item On réarrange les arbres en les rendent complet pour les rendre comparables
+				\item $b*$ d'un arbre de depth $d$ contient N+1 nodes
+			\end{itemize}
+			
+			Le meilleur heuristique est toujours le mieux informé
+			
+			$h_2$ sera toujour meilleur que $h_1$ temps que  :
+			\begin{itemize}
+				\item $\forall \text{node} n : h_2(n) \geq h_1(n)$
+				\item $h_2$ domine $h_1$
+			\end{itemize}
+			
+		\subsubsection{Desing d'heuristique admissible}
+			Un technique est de simplifier le problème en retirant des restrictions sur les actions.
+			
+			Le cout de la solutions de ce problème simplifié est toujours une heuristique admissible du probleme original.
